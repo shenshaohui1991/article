@@ -30,12 +30,20 @@
 		+ 作用域
 			+ 不定义变量将会导致隐式全局变量（包括函数内的变量）
 			+ JS是函数作用域：变量在声明它们的函数体以及这个函数体嵌套的任意函数体内都是有定义的
-		+ 数组
-			+ for in会枚举原型链上所有的属性，速度比普通循环慢好几倍
-			+ length属性getter方法会简单的返回数组长度，setter会截断数组（缩小截断，扩大没效果）
-
-
-
+	+ 数组
+		+ for in会枚举原型链上所有的属性，速度比普通循环慢好几倍
+		+ length属性getter方法会简单的返回数组长度，setter会截断数组（缩小截断，扩大没效果）
+	+ 类型
+		+ == 会进行强制类型转换，建议使用 === (类似于C语言中的指针比较)
+		+ typeof唯一的作用就是 检测变量是否已经定义 typeof foo !== 'undefined'
+		+ instanceof唯一的作用就是 比较来自同一个 JavaScript 上下文的自定义对象
+		+  + '10' === 10 这个会将 字符串转换成数字
+		+ 通过两次否 操作可以将一个值转换成布尔类型
+	+ 核心
+		+ eval可以执行任意传给他的代码，不论安全与否
+		+ setTimeout setInterval内部使用eval函数，所以他接受参数为字符串，但是不推荐使用字符串
+		+ 当setInterval调用的函数被阻塞后，setInterval任然会调用回调函数
+		+ 由于JS是单线程的，所以没办法保证setTimeout setInterval能够按时执行
 
 #### 参考
 [JavaScript秘密花园](http://bonsaiden.github.io/JavaScript-Garden/zh/#object)
