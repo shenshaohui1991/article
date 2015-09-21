@@ -1,0 +1,75 @@
+### ES6学习笔记
+#### let & const
++ let 定义块级作用域变量
+```
+	for(let i=0; i<6; i++){
+		a[i] = function(){
+			console.log(i);
+		};
+	}
+	a[6]();
+	效果等同于以下闭包
+	for(var i=0; i<6; i++){
+		a[i] = (function(x){
+			return function(x){
+				console.log(x));
+			};
+		})(i);
+	}
+```
++ let 不存在变量提升
+```
+	function dosomething(){
+		console.log(foo); // 报错ReferenceError
+		let foo;
+	}
+```
++ let 暂时性死区
+```
+	var tmp = 123;
+	if(true){
+		temp = '123123123'; // 报错ReferenceError
+		let temp;
+	}
+	let声明的变量绑定其所在区域，该区域不再受外部影响
+```
++ let 同一个作用域不可以定义同名的变量
++ let 内层作用域可以定义外层作用域的同名变量
++ let 使得立即执行的匿名函数IIFE不再有必要
++ 函数本身的作用域，在其所在的块级作用域中
+
++ const 声明常量 只在自己所在的作用域有效
+```
+	const PI = 3.14;
+	PI // 3.14
+	PI = 3;
+	PI // 3.14
+	const PI = 3.1;
+	PI // 3.14
+	常量只能赋值一次
+```
++ const 存储的是一个地址，地址只想一个对象，不可变的地址，对象是可变的
+```
+	const a = [];
+	a.push('hello'); // 可执行
+	a.length = 0; // 可执行
+	a = ['Dave']; // 报错
+```
++ 想要使得对象不能够被操作，可以使用 Object.freeze方法冻结对象
++ 跨模块常量
+```
+	// A.js
+	export const A = 1;
+	export const B = 3;
+	export const C = 4;
+
+	// B.js
+	import * as constants from './A.js';
+	console.log(constants.A);
+
+	// C.js
+	import {A,B} from './A.js';
+	console.log(A);
+```
+#### 参考
+[JavaScript秘密花园](http://es6.ruanyifeng.com/#docs)
